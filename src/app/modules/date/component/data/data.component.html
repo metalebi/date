@@ -1,0 +1,87 @@
+<div class="date">
+  <div class="date-table">
+    <div class="header">
+      <div class="date-day">
+        <p class="date-day-detail">برو به امروز</p>
+      </div>
+      <div>
+        <p class="change-years">
+          <mat-icon class="before">chevron_right</mat-icon>
+          1402
+          <mat-icon class="next">chevron_left</mat-icon>
+        </p>
+      </div>
+      <div class="change-calendar">
+        <p class="change-calendar-detail">
+          <mat-icon>calendar_month</mat-icon>
+          تقویم میلادی
+        </p>
+      </div>
+    </div>
+    <div class="table">
+      <div class="change-month">
+        <p>
+          <mat-icon class="before">chevron_right</mat-icon>
+          مهر
+        </p>
+        <p>
+          <mat-icon class="next">chevron_left</mat-icon>
+          آبان
+        </p>
+      </div>
+      <div class="table-detail">
+        <div class="detail">
+          <div class="day-week">
+            <ng-container *ngFor="let item of weekList">
+              <p>
+                {{ item.day }}
+              </p>
+            </ng-container>
+          </div>
+          <div class="day-month">
+            <div *ngFor="let item of dayOfMonth">
+              <p>
+                {{ item }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="table-detail">
+        <div class="detail">
+          <div class="day-week">
+            <ng-container *ngFor="let item of weekList">
+              <p>
+                {{ item.day }}
+              </p>
+            </ng-container>
+          </div>
+          <div class="day-month">
+            <div *ngFor="let item of dayOfMonth">
+              <p>
+                {{ item }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="end-table">
+      <div class="date-select">
+        <p>
+          شروع
+          <span> 21 خرداد </span>
+        </p>
+        <p>
+          - پایان
+          <span> 30 مهر </span>
+        </p>
+      </div>
+      <div class="date-approve">
+        <p>
+          <button>تایید</button>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
