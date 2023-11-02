@@ -1,213 +1,296 @@
-.date {
-    margin: 107px;
-    width: 575px;
-    height: 408px;
-    background: rgb(255, 255, 255);
-    border: 1px solid #dcdcdc;
-    border-radius: 12px;
-
-    .date-table {
+.body{
+    margin: 100PX;
+    .date-picker {
         width: 100%;
-        height: 100%;
-
-        .header {
-            border-bottom: 1px solid gainsboro;
-            height: 41px;
-            display: flex;
-            div {
+        height: 32px;
+        max-width: 500px;
+        p {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            position: relative;
+            input {
+                width: 100%;
+                height: 100%;
+                padding: 0;
                 margin: 0;
-                display: inline-block;
-                flex: 1 auto;
-                padding: 10px;
-
-                &.date-day {
-                    text-align: right;
-                    .date-day-detail {
-                        text-align: right;
-                        font-size: 0.7rem;
-                        color: #498af4;
-                        cursor: pointer;
-                        display: inline-block;
-                        border: 1px solid rgb(255, 255, 255);
-                        transition: 0.4s;
-                        padding: 0px 2px;
-                        &:hover {
-                            background: rgb(207 245 255 / 37%);
-                            border: 1px solid rgb(187 224 255);
-                            border-radius: 8px;
-                        }
-                    }
-                }
-
-                .change-years {
-                    text-align: center;
-                    position: relative;
-                    margin: 0;
-                    mat-icon {
-                        top: 8px;
-                        font-size: 1.6rem;
-                        position: absolute;
-                        cursor: pointer;
-                    }
-                    .before {
-                        right: 20px;
-                        top: 0px;
-                    }
-                    .next {
-                        top: 0px;
-                        left: 20px;
-                    }
-                }
-
-                &.change-calendar {
-                    text-align: left;
-                    .change-calendar-detail {
-                        position: relative;
-                        font-size: 0.7rem;
-                        color: #498af4;
-                        margin: 0;
-                        display: inline-block;
-                        cursor: pointer;
-                        border: 1px solid rgb(255, 255, 255);
-                        transition: 0.4s;
-                        padding-right: 20px;
-                        padding-left: 2px;
-                        mat-icon {
-                            position: absolute;
-                            right: -6px;
-                            top: 2px;
-                            font-size: 1.1rem;
-                        }
-
-                        &:hover {
-                            background: rgb(207 245 255 / 37%);
-                            border: 1px solid rgb(187 224 255);
-                            border-radius: 8px;
-                        }
-                    }
-                }
+                border-top: none;
+                border-left: none;
+                border-right: none;
+                outline: none;
+            }
+            mat-icon {
+                position: absolute;
+                left: 0;
+                top: 6px;
+                cursor: pointer;
             }
         }
-
-        .table {
-            height: calc(100% - 94px);
-            padding-top: 10px;
-            .change-month {
-                height: 35px;
-                width: 100%;
-                text-align: center;
-                p {
-                    width: 50%;
-                    display: inline-block;
-                    position: relative;
-                    mat-icon {
-                        position: absolute;
-                        font-size: 1.6rem;
-                        cursor: pointer;
-                    }
-                    .before {
-                        right: 8px;
-                    }
-                    .next {
-                        left: 12px;
-                    }
-                }
+    }
+    
+    .date {
+        width: 575px;
+        height: 408px;
+        background: rgb(255, 255, 255);
+        border: 1px solid #dcdcdc;
+        border-radius: 12px;
+    
+        animation-name: showDate;
+        animation-duration: 0.7s;
+        animation-iteration-count: 1;
+        @keyframes showDate {
+            0% {
+                scale: 0.3;
+                height: 0px;
             }
-
-            .table-detail {
-                vertical-align: top;
-                width: 50%;
-                height: calc(100% - 35px);
-                display: inline-block;
-                .detail {
-                    width: 100%;
-                    .day-week {
-                        p {
+            100% {
+                scale: 1;
+                height: 408px;
+            }
+        }
+    
+        .date-table {
+            width: 100%;
+            height: 100%;
+    
+            .header {
+                border-bottom: 1px solid gainsboro;
+                height: 41px;
+                display: flex;
+                div {
+                    margin: 0;
+                    display: inline-block;
+                    flex: 1 auto;
+                    padding: 10px;
+    
+                    &.date-day {
+                        text-align: right;
+                        .date-day-detail {
+                            text-align: right;
+                            font-size: 0.7rem;
+                            color: #498af4;
+                            cursor: pointer;
+                            display: inline-block;
+                            border: 1px solid rgb(255, 255, 255);
+                            transition: 0.4s;
+                            padding: 0px 2px;
+                            &:hover {
+                                background: rgb(207 245 255 / 37%);
+                                border: 1px solid rgb(187 224 255);
+                                border-radius: 8px;
+                            }
+                        }
+                    }
+    
+                    .change-years {
+                        text-align: center;
+                        position: relative;
+                        margin: 0;
+                        mat-icon {
+                            top: 8px;
+                            font-size: 1.6rem;
+                            position: absolute;
+                            cursor: pointer;
+                        }
+                        .before {
+                            right: 0px;
+                            top: 0px;
+                        }
+                        .next {
+                            top: 0px;
+                            left: 0px;
+                        }
+                    }
+    
+                    &.change-calendar {
+                        text-align: left;
+                        .change-calendar-detail {
+                            position: relative;
+                            font-size: 0.7rem;
+                            color: #498af4;
                             margin: 0;
                             display: inline-block;
-                            width: 40px;
-                            height: 35px;
-                            font-size: 0.8rem;
-                            font-weight: 600;
-                            text-align: center;
-                            color: #c6c6c6;
+                            cursor: pointer;
+                            border: 1px solid rgb(255, 255, 255);
+                            transition: 0.4s;
+                            padding-right: 20px;
+                            padding-left: 2px;
+                            mat-icon {
+                                position: absolute;
+                                right: -6px;
+                                top: 2px;
+                                font-size: 1.1rem;
+                            }
+    
+                            &:hover {
+                                background: rgb(207 245 255 / 37%);
+                                border: 1px solid rgb(187 224 255);
+                                border-radius: 8px;
+                            }
                         }
                     }
-                    .day-month {
-                        div {
-                            display: inline-block;
-                            width: 32px;
-                            height: 32px;
-                            text-align: center;
-                            border: 2px solid white;
-                            margin: 2px;
-                            border-radius: 8px;
+                }
+            }
+    
+            .table {
+                height: calc(100% - 94px);
+                padding-top: 10px;
+                .change-month {
+                    height: 35px;
+                    width: 100%;
+                    text-align: center;
+                    p {
+                        width: 50%;
+                        display: inline-block;
+                        position: relative;
+                        mat-icon {
+                            position: absolute;
+                            font-size: 1.6rem;
                             cursor: pointer;
-                            transition: 0.4s;
-
+                        }
+                        .before {
+                            right: 8px;
+                        }
+                        .next {
+                            left: 12px;
+                        }
+                    }
+                }
+    
+                .table-detail {
+                    vertical-align: top;
+                    width: 50%;
+                    height: calc(100% - 35px);
+                    display: inline-block;
+                    .detail {
+                        width: 100%;
+                        .day-week {
                             p {
                                 margin: 0;
-                                width: 100%;
-                                height: 100%;
-                                padding-top: 6px;
+                                display: inline-block;
+                                width: 40px;
+                                height: 35px;
                                 font-size: 0.8rem;
-                                color:#727272;
+                                font-weight: 600;
+                                text-align: center;
+                                color: #c6c6c6;
                             }
-
-                            &:hover {
-                                border: 2px solid rgb(221, 163, 3);
+                        }
+                        .day-month {
+                            div {
+                                display: inline-block;
+                                width: 32px;
+                                height: 32px;
+                                text-align: center;
+                                border: 2px solid white;
+                                margin: 2px;
+                                border-radius: 8px;
+                                cursor: pointer;
+                                transition: 0.4s;
+                                vertical-align: top;
+    
+                                &.day-now {
+                                    box-shadow: 0px 0px 1px 1px #838383;
+                                    transition: 0.3s;
+                                    &.is-day-now {
+                                        animation-name: animationGoToDayNow;
+                                        animation-duration: 0.5s;
+                                        animation-iteration-count: 3;
+                                        @keyframes animationGoToDayNow {
+                                            0% {
+                                                box-shadow: 0px 0px 1px 1px #ffc70ec5;
+                                            }
+                                            50% {
+                                                box-shadow: 0px 0px 1px 4px #ffc70ec5;
+                                            }
+                                            100% {
+                                                box-shadow: 0px 0px 1px 1px #ffc70ec5;
+                                            }
+                                        }
+                                    }
+    
+                                    &:hover {
+                                        box-shadow: none;
+                                    }
+                                }
+                                &.is-day-now {
+                                }
+                                &.no-day-month {
+                                    cursor: default;
+                                    &:hover {
+                                        border: 2px solid white;
+                                    }
+                                }
+                                &.fri-day {
+                                    p {
+                                        color: rgba(255, 0, 0, 0.753);
+                                    }
+                                }
+                                p {
+                                    margin: 0;
+                                    width: 100%;
+                                    height: 100%;
+                                    padding-top: 6px;
+                                    font-size: 0.8rem;
+                                    color: #727272;
+                                }
+    
+                                &:hover {
+                                    border: 2px solid rgb(221, 163, 3);
+                                }
                             }
                         }
                     }
                 }
             }
-        }
-
-        .end-table {
-            height: 41px;
-            border-top: 1px solid gainsboro;
-            border-radius: 8px;
-            .date-select {
-                display: inline-block;
-                width: 70%;
-                vertical-align: top;
-                padding-top: 10px;
-                p {
+    
+            .end-table {
+                height: 41px;
+                border-top: 1px solid gainsboro;
+                border-radius: 8px;
+                .date-select {
                     display: inline-block;
-                    font-size: 0.75rem;
-                    margin: 0;
-                    padding-right: 10px;
-                    span {
-                        font-weight: 600;
+                    width: 70%;
+                    vertical-align: top;
+                    padding-top: 10px;
+                    p {
+                        display: inline-block;
+                        font-size: 0.75rem;
+                        margin: 0;
+                        padding-right: 10px;
+                        span {
+                            font-weight: 600;
+                        }
                     }
                 }
-            }
-            .date-approve {
-                vertical-align: top;
-                display: inline-block;
-                width: 30%;
-                text-align: left;
-                padding-top: 8px;
-                height: 100%;
-                p {
-                    margin: 0;
-                    padding-left: 10px;
-                    button {
-                        width: 75px;
-                        height: 28px;
-                        border: none;
-                        border-radius: 5px;
-                        background: #3481ff;
-                        font-size: 1rem;
-                        color: white;
-                        transition: 0.4s;
-                        cursor: pointer;
-                        &:hover {
-                            background: #256de0;
+                .date-approve {
+                    vertical-align: top;
+                    display: inline-block;
+                    width: 30%;
+                    text-align: left;
+                    padding-top: 8px;
+                    height: 100%;
+                    p {
+                        margin: 0;
+                        padding-left: 10px;
+                        button {
+                            width: 75px;
+                            height: 28px;
+                            border: none;
+                            border-radius: 5px;
+                            background: #3481ff;
+                            font-size: 1rem;
+                            color: white;
+                            transition: 0.4s;
+                            cursor: pointer;
+                            &:hover {
+                                background: #256de0;
+                            }
                         }
                     }
                 }
             }
         }
     }
+    
 }
