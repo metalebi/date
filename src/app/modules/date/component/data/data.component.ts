@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import * as moment from 'jalali-moment';
 import { DateMonthVm, WeekTypeShEnm } from '../../model/dateMonthVm';
 import { DateHelper } from 'src/app/helper/helper';
 import { MonthVm } from '../../model/monthVm';
-
+import { dateDetectionTypeEnm } from 'src/app/model/enm/dateDetectionTypeEnm';
 @Component({
   selector: 'data',
   templateUrl: './data.component.html',
@@ -26,8 +26,12 @@ export class DataComponent implements OnInit {
     this.getDateOfDay();
 
   }
-  dateSelect1!: string;
-  dateSelect2!: string;
+
+  countClick: number = 0
+
+
+  dateSelect1!: SelectDate;
+  dateSelect2!: SelectDate;
   showDate: boolean = false;
   isDayNow: boolean = false;
   yearOne!: number;
@@ -96,11 +100,7 @@ export class DataComponent implements OnInit {
   ];
 
 
-  openMenuDate() {
-    this.showDate = true;
-  }
   getDateOfDay() {
-
     this.dayOfMonth.month1 = DateHelper.DaysOfTheMonth(this.yearOne, this.monthDateOne, this.yearDateOneSh, this.monthDateOneSh);
     this.dayOfMonth.month2 = DateHelper.DaysOfTheMonth(this.yearTwo, this.monthDateTwo, this.yearDateTwoSh, this.monthDateTwoSh);
 
@@ -224,21 +224,84 @@ export class DataComponent implements OnInit {
       (this.monthDateNowSh == this.monthDateTwoSh) &&
       this.dayDateNowSh == item);
   }
-  selectDate(item: DateMonthVm, status: boolean) {
-    if (status) {
-      this.dateSelect1 = this.yearDateOneSh + '/' + this.monthDateOneSh + '/' + item.day;
+  selectDate(item: DateMonthVm, firstTable: boolean, index: number) {
+    let newDate: string = '';
+    if (firstTable) {
+      newDate = moment.from(this.yearDateOneSh + '/' + this.monthDateOneSh + '/' + item.day, 'fa', 'YYYY/MM/DD').format('YYYY/MM/DD');
     } else {
-      this.dateSelect2 = this.yearDateTwoSh + '/' + this.monthDateTwoSh + '/' + item.day;
+      newDate = moment.from(this.yearDateTwoSh + '/' + this.monthDateTwoSh + '/' + item.day, 'fa', 'YYYY/MM/DD').format('YYYY/MM/DD');
     }
+    let dateOne = moment.from(this.dateSelect1?.date, 'fa', 'YYYY/MM/DD').format('YYYY/MM/DD');
+    this.dayOfMonth.month1.map(m => m.selectedEnd = false);
+    this.dayOfMonth.month2.map(m => m.selectedEnd = false);
+    this.dayOfMonth.month1.map(m => m.betWeenSelect = false);
+    this.dayOfMonth.month2.map(m => m.betWeenSelect = false);
+    if (!this.dateSelect1?.date?.length || this.dateSelect2?.date?.length ||
+      (DateHelper.greaterDateDetection(newDate, dateOne) == dateDetectionTypeEnm.endIsLarger ||
+        DateHelper.greaterDateDetection(newDate, dateOne) == dateDetectionTypeEnm.equalDate)) {
+      // set First and clear two
+      this.dayOfMonth.month1.map(m => m.selectedFirst = false);
+      this.dayOfMonth.month2.map(m => m.selectedFirst = false);
+      this.dateSelect2 = new SelectDate();
+      this.indexTwoStart = -1;
+      this.indexFirstStart = -1;
+      this.indexFirstEnd = -1;
+      this.indexTwoEnd = -1;
+      if (firstTable) {
+        this.indexFirstStart = index;
+        this.dateSelect1 = new SelectDate(item.day, this.monthDateOneSh, this.yearDateOneSh)
+      } else {
+        this.indexTwoStart = index;
+        this.dateSelect1 = new SelectDate(item.day, this.monthDateTwoSh, this.yearDateTwoSh)
+      }
+      item.selectedFirst = true;
+    } else {
+      // set two
+      if (firstTable) {
+        this.indexFirstEnd = index;
+        this.dateSelect2 = new SelectDate(item.day, this.monthDateOneSh, this.yearDateOneSh)
+      } else {
+        this.indexTwoEnd = index;
+        this.dateSelect2 = new SelectDate(item.day, this.monthDateTwoSh, this.yearDateTwoSh)
+      }
+      item.selectedEnd = true;
+    }
+  }
+
+
+  indexFirstStart: number = -1;
+  indexFirstEnd: number = -1;
+  indexTwoStart: number = -1;
+  indexTwoEnd: number = -1;
+  activeBetWeenToDates(firstTable: boolean, index: number) {
+    if (this.dateSelect2?.date?.length) {
+      if (firstTable) {
+        if (this.indexFirstStart <= index && this.indexFirstEnd >= index) {
+          return true
+        }
+      } else {
+        if (this.indexTwoStart <= index && this.indexTwoEnd >= index) {
+          return true
+        }
+      }
+      if (this.indexFirstStart >= 0 && this.indexTwoEnd >= 0) {
+        if (firstTable)
+          return index >= this.indexFirstStart;
+        return index <= this.indexTwoEnd;
+      }
+    }
+    return false;
   }
 }
 class WeekVm {
   day!: string;
 }
 
-
-
-
-class Test {
-  is_holiday!: boolean;
+class SelectDate {
+  constructor(public day: number = 0, public month: number = 0, public year: number = 0) {
+    if (day > 0 && month > 0 && year > 0) {
+      this.date = year + '/' + month + '/' + day;
+    }
+  }
+  date!: string;
 }

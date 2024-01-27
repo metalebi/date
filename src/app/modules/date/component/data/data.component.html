@@ -1,5 +1,5 @@
 <div class="body">
-  <div class="date-picker" (click)="openMenuDate()">
+  <div class="date-picker" (click)="showDate=!showDate">
     <p>
       <input type="text">
       <mat-icon>calendar_month</mat-icon>
@@ -58,10 +58,10 @@
               </ng-container>
             </div>
             <div class="day-month">
-              <div *ngFor="let item of dayOfMonth.month1"
-                [ngClass]="{'fri-day':item?.weekType==WeekTypeShEnm.Fri,'no-day-month':!item?.day,'day-now': classGetDateNow(item?.day ?? 0, true),'is-day-now': isDayNow,
-              }"
-                (click)="selectDate(item,true)">
+              <div *ngFor="let item of dayOfMonth.month1;let i=index"
+                [ngClass]="{'fri-day':item?.weekType==WeekTypeShEnm.Fri,
+              'no-day-month':!item?.day,'day-now': classGetDateNow(item?.day ?? 0, true),'is-day-now': isDayNow,
+              'active-date':item.selectedEnd || item.selectedFirst,'between-dates':activeBetWeenToDates(true,i)&&item?.day}" (click)="selectDate(item,true,i)">
                 <p *ngIf="item?.day">
                   {{item?.day}}
                 </p>
@@ -79,9 +79,9 @@
               </ng-container>
             </div>
             <div class="day-month">
-              <div *ngFor="let item of dayOfMonth.month2"
-                [ngClass]="{'fri-day':item?.weekType==WeekTypeShEnm.Fri,'no-day-month':!item?.day,'day-now': classGetDateNow(item?.day ?? 0, false),'is-day-now': isDayNow}"
-                (click)="selectDate(item,false)">
+              <div *ngFor="let item of dayOfMonth.month2;let i = index" [ngClass]="{'fri-day':item?.weekType==WeekTypeShEnm.Fri,'no-day-month':!item?.day,'day-now':
+                 classGetDateNow(item?.day ?? 0, false),'is-day-now': isDayNow,
+                'active-date':item.selectedEnd || item.selectedFirst}" (click)="selectDate(item,false,i)">
                 <p *ngIf="item?.day">
                   {{item.day}}
                 </p>
@@ -94,11 +94,11 @@
         <div class="date-select">
           <p>
             شروع
-            <span> {{dateSelect1}}</span>
+            <span> {{dateSelect1?.date}}</span>
           </p>
-          <p *ngIf="dateSelect2">
+          <p *ngIf="dateSelect2?.date">
             - پایان
-            <span> {{dateSelect2}} </span>
+            <span> {{dateSelect2.date}} </span>
           </p>
         </div>
         <div class="date-approve">
