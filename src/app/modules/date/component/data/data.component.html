@@ -1,12 +1,10 @@
 <div class="body">
   <div class="date-picker" (click)="showDate=!showDate">
     <p>
-      <input type="text">
+      <input type="text" [formControl]="formControlInput">
       <mat-icon>calendar_month</mat-icon>
     </p>
   </div>
-
-
 
   <div class="date" *ngIf="showDate">
     <div class="date-table">
@@ -58,12 +56,10 @@
               </ng-container>
             </div>
             <div class="day-month">
-              <div *ngFor="let item of dayOfMonth.month1;let i=index"
-                [ngClass]="{'fri-day':item?.weekType==WeekTypeShEnm.Fri,
-              'no-day-month':!item?.day,'day-now': classGetDateNow(item?.day ?? 0, true),'is-day-now': isDayNow,
-              'active-date':item.selectedEnd || item.selectedFirst,'between-dates':activeBetWeenToDates(true,i)&&item?.day}" (click)="selectDate(item,true,i)">
-                <p *ngIf="item?.day">
-                  {{item?.day}}
+              <div *ngFor="let item of dayOfMonth.month1;let i=index" [ngClass]="getClassDay(item,true)"
+                (click)="selectDate(item,true,i)">
+                <p *ngIf="item?.dataShamsi?.daySh">
+                  {{item?.dataShamsi?.daySh}}
                 </p>
               </div>
             </div>
@@ -74,16 +70,15 @@
             <div class="day-week">
               <ng-container *ngFor="let item of weekList">
                 <p>
-                  {{item.day}}
+                  {{item?.day}}
                 </p>
               </ng-container>
             </div>
             <div class="day-month">
-              <div *ngFor="let item of dayOfMonth.month2;let i = index" [ngClass]="{'fri-day':item?.weekType==WeekTypeShEnm.Fri,'no-day-month':!item?.day,'day-now':
-                 classGetDateNow(item?.day ?? 0, false),'is-day-now': isDayNow,
-                'active-date':item.selectedEnd || item.selectedFirst}" (click)="selectDate(item,false,i)">
-                <p *ngIf="item?.day">
-                  {{item.day}}
+              <div *ngFor="let item of dayOfMonth.month2;let i = index" [ngClass]="getClassDay(item,false)"
+                (click)="selectDate(item,false,i)">
+                <p *ngIf="item?.dataShamsi?.daySh">
+                  {{item?.dataShamsi?.daySh}}
                 </p>
               </div>
             </div>
@@ -94,7 +89,7 @@
         <div class="date-select">
           <p>
             شروع
-            <span> {{dateSelect1?.date}}</span>
+            <span *ngIf="dateSelect1?.date"> {{dateSelect1.date}}</span>
           </p>
           <p *ngIf="dateSelect2?.date">
             - پایان

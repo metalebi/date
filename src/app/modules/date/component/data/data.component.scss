@@ -29,7 +29,7 @@
     }
 
     .date {
-        width: 575px;
+        width: 514px;
         height: 408px;
         background: rgb(255, 255, 255);
         border: 1px solid #dcdcdc;
@@ -143,6 +143,7 @@
                         width: 50%;
                         display: inline-block;
                         position: relative;
+                        opacity: 1;
                         mat-icon {
                             position: absolute;
                             font-size: 1.6rem;
@@ -159,7 +160,8 @@
 
                 .table-detail {
                     vertical-align: top;
-                    width: 50%;
+                    width: calc(50% - 2px);
+                    padding-right: 2px;
                     height: calc(100% - 35px);
                     display: inline-block;
                     .detail {
@@ -168,7 +170,7 @@
                             p {
                                 margin: 0;
                                 display: inline-block;
-                                width: 40px;
+                                width: 36px;
                                 height: 35px;
                                 font-size: 0.8rem;
                                 font-weight: 600;
@@ -182,12 +184,13 @@
                                 width: 32px;
                                 height: 32px;
                                 text-align: center;
-                                border: 2px solid white;
-                                margin: 2px;
-                                border-radius: 8px;
+                                // border: 2px solid white;
+                                margin: 2px 2px;
+                                border-radius: 4px;
                                 cursor: pointer;
                                 transition: 0.4s;
                                 vertical-align: top;
+                                box-shadow: 0px 0px 1px 2px rgb(255, 255, 255);
                                 p {
                                     margin: 0;
                                     width: 100%;
@@ -197,8 +200,19 @@
                                     color: #727272;
                                 }
 
+                                animation-name: daysMonth;
+                                animation-duration: 0.6s;
+                                @keyframes daysMonth {
+                                    0% {
+                                        opacity: 0.4;
+                                    }
+                                    100% {
+                                        opacity: 1;
+                                    }
+                                }
+
                                 &.day-now {
-                                    box-shadow: 0px 0px 1px 1px #838383;
+                                    box-shadow: 0px 0px 1px 2px #838383;
                                     transition: 0.3s;
                                     &.is-day-now {
                                         animation-name: animationGoToDayNow;
@@ -218,7 +232,7 @@
                                     }
 
                                     &:hover {
-                                        box-shadow: none;
+                                        box-shadow: 0px 0px 1px 2px rgb(221, 163, 3);
                                     }
                                 }
                                 &.is-day-now {
@@ -226,7 +240,7 @@
                                 &.no-day-month {
                                     cursor: default;
                                     &:hover {
-                                        border: 2px solid white;
+                                        box-shadow: none;
                                     }
                                 }
                                 &.fri-day {
@@ -234,14 +248,15 @@
                                         color: rgba(255, 0, 0, 0.753);
                                     }
                                 }
-                                &.active-date {
-                                    border: 2px solid rgb(221, 163, 3);
-                                }
                                 &.between-dates {
                                     background: #fffa002b;
                                 }
+                                &.active-date {
+                                    box-shadow: 0px 0px 0px 2px rgba(200, 147, 0, 0.79);
+                                    background: #ffd152;
+                                }
                                 &:hover {
-                                    border: 2px solid rgb(221, 163, 3);
+                                    box-shadow: 0px 0px 1px 2px rgb(221, 163, 3);
                                 }
                             }
                         }
